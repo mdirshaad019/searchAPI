@@ -30,24 +30,24 @@ public class NetflixCustomRepoImpl implements NetflixCustomRepo{
 		String postfix = "";
 		
 		if(Objects.nonNull(netflixData.getDirector())){
-			queryBuilder += "JOIN Director d on d.id=n.director ";
-			postfix += " d.director = '" + netflixData.getDirector()+"'";
+			queryBuilder += ", Director d ";
+			postfix += " d.name = '" + netflixData.getDirector().get(0).getName()+"'";
 		}
 		if(Objects.nonNull(netflixData.getCast())){
-			queryBuilder += "JOIN Cast c on c.id=n.cast ";
+			queryBuilder += ", Cast c ";
 			if(postfix != "")
 				postfix += AND_APPEND;
 			postfix += " c.cast = '" + netflixData.getCast()+"'";
 		}
 		if(Objects.nonNull(netflixData.getCountry())){
-			queryBuilder += "JOIN Country cn on cn.id=n.director ";
+			queryBuilder += ", Country cn ";
 			if(postfix != "")
 				postfix += AND_APPEND;
 			postfix += " cn.country = '" + netflixData.getCountry()+"'";
 		}
 		
 		if(Objects.nonNull(netflixData.getListed_in())){
-			queryBuilder += "JOIN ListedIn l on l.id=n.director ";
+			queryBuilder += ", ListedIn l ";
 			if(postfix != "")
 				postfix += AND_APPEND;
 			postfix += " n.listed_in = '" + netflixData.getListed_in()+"'";
